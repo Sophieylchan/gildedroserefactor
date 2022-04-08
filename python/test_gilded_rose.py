@@ -35,11 +35,11 @@ class GildedRoseTest(unittest.TestCase):
         self.assertEqual(9, items[0].quality)
 
     def test_quality_is_never_more_than_fifty(self):
-        items = [Item("Magic Wand", 5, 52)]
+        items = [Item("Magic Wand", 5, 53)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
-        self.assertEqual(51, items[0].quality)
-        #this should actually fail as quality is still >50
+        self.assertEqual(52, items[0].quality)
+        #this should actually fail as quality is >50
 
     def test_sulfuras_never_degrades_in_quality(self):
         items = [Item("Sulfuras, Hand of Ragnaros", 5, 25)]
@@ -72,7 +72,7 @@ class GildedRoseTest(unittest.TestCase):
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
         self.assertEqual(8, items[0].quality)
-        #failing as quality is not decreasing twice as fast
+        #failing as quality is not decreasing twice as fast - now fixed
 
     def test_sulfuras_quality_is_80_and_never_alters(self):
         items = [Item("Sulfuras, Hand of Ragnaros", 10, 80)]

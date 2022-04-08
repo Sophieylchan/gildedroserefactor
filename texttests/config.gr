@@ -4,9 +4,9 @@ full_name:Gilded Rose Refactoring Kata
 view_program:subl
 diff_program:meld
 
-# Settings for the Python version
-#executable:${TEXTTEST_HOME}/python/texttest_fixture.py
-#interpreter:python
+#Settings for the Python version
+executable:python\texttest_fixture.py
+interpreter:python
 
 # Settings for the cpp version
 #executable:${TEXTTEST_HOME}/cpp/cmake-build-debug/test/cpp_texttest/GildedRoseTextTests
