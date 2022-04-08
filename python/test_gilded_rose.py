@@ -38,8 +38,8 @@ class GildedRoseTest(unittest.TestCase):
         items = [Item("Magic Wand", 5, 52)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
-        #this should actually fail as quality is still >50
         self.assertEqual(51, items[0].quality)
+        #this should actually fail as quality is still >50
 
     def test_sulfuras_never_degrades_in_quality(self):
         items = [Item("Sulfuras, Hand of Ragnaros", 5, 25)]
@@ -67,18 +67,44 @@ class GildedRoseTest(unittest.TestCase):
         gilded_rose.update_quality()
         self.assertEqual(0, items[0].quality)
 
-    # def test_conjured_item_degrades_twice_as_fast(self):
-    #     items = [Item("Conjured", 10, 10)]
-    #     gilded_rose = GildedRose(items)
-    #     gilded_rose.update_quality()
-    #     self.assertEqual(8, items[0].quality)
-        #not yet implemented so will fail
+    def test_conjured_item_degrades_twice_as_fast(self):
+        items = [Item("Conjured Mana Cake", 3, 10)]
+        gilded_rose = GildedRose(items)
+        gilded_rose.update_quality()
+        self.assertEqual(8, items[0].quality)
+        #failing as quality is not decreasing twice as fast
 
     def test_sulfuras_quality_is_80_and_never_alters(self):
         items = [Item("Sulfuras, Hand of Ragnaros", 10, 80)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
         self.assertEqual(80, items[0].quality)
+
+class GoldenMasterTest(unittest.TestCase):
+
+    def test_update_items(self):
+        items = [
+            Item(name="+5 Dexterity Vest", sell_in=10, quality=20),
+            Item(name="Aged Brie", sell_in=2, quality=0),
+            Item(name="Elixir of the Mongoose", sell_in=5, quality=7),
+            Item(name="Sulfuras, Hand of Ragnaros", sell_in=0, quality=80),
+            Item(name="Sulfuras, Hand of Ragnaros", sell_in=-1, quality=80),
+            Item(name="Backstage passes to a TAFKAL80ETC concert", sell_in=15, quality=20),
+            Item(name="Backstage passes to a TAFKAL80ETC concert", sell_in=10, quality=49),
+            Item(name="Backstage passes to a TAFKAL80ETC concert", sell_in=5, quality=49),
+            Item(name="Conjured Mana Cake", sell_in=3, quality=6),
+        ]
+
+        gilded_rose = GildedRose(items)
+
+        gilded_rose.update_quality()
+        self.assertEqual(
+            str(gilded_rose.items),
+            "[+5 Dexterity Vest, 9, 19, Aged Brie, 1, 1, Elixir of the Mongoose, 4, 6, Sulfuras, Hand of Ragnaros, 0, "
+            "80, Sulfuras, Hand of Ragnaros, -1, 80, Backstage passes to a TAFKAL80ETC concert, 14, 21, "
+            "Backstage passes to a TAFKAL80ETC concert, 9, 50, Backstage passes to a TAFKAL80ETC concert, 4, 50, "
+            "Conjured Mana Cake, 2, 5]"
+        )
 
 if __name__ == '__main__':
     unittest.main()
